@@ -1,16 +1,13 @@
 import "./App.css";
-import { Accordion } from "./components/Accordion";
-import { Cart } from "./components/Cart";
+
 import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
+import { Content } from "./components/Content";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex flex-col  justify-between">
       <Navbar />
-      <Accordion />
-      <Cart />
-      <Footer />
+      <Content />
     </div>
   );
 }
