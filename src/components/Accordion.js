@@ -4,7 +4,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { Card } from "./Card";
 
 export const Accordion = (props) => {
-  const { name, products } = props;
+  const { name, products, addToCart } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const IMG_URL = process.env.PUBLIC_URL + "/productos/imgs/";
@@ -14,7 +14,6 @@ export const Accordion = (props) => {
   };
   return (
     <div className="border border-gray-300 rounded-md">
-      {console.log(products)}
       <div
         className="flex items-center justify-between px-4 py-2 cursor-pointer  bg-slate-200 hover:bg-slate-400"
         onClick={toggleAccordion}
@@ -36,6 +35,7 @@ export const Accordion = (props) => {
                 prize={product.precio}
                 stock={product.stock}
                 id={product.id}
+                addToCart={addToCart}
               />
             ))}
         </div>

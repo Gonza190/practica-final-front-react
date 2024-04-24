@@ -3,7 +3,7 @@ import { Accordion } from "./Accordion";
 import { Card } from "./Card";
 
 export const AccordionGroup = (props) => {
-  const { categories, products } = props;
+  const { categories, products, addToCart } = props;
   let filteredProducts = filterProducts();
 
   function filterProducts() {
@@ -24,6 +24,7 @@ export const AccordionGroup = (props) => {
           key={category.id}
           name={category.nombre}
           products={filteredProducts[category.nombre]}
+          addToCart={addToCart}
         />
       ))}
     </div>

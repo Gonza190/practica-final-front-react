@@ -1,7 +1,7 @@
 import React from "react";
 
 export const SmallCard = (props) => {
-  const { imagePath, title, prize, stock, id } = props;
+  const { imagePath, title, prize, stock, id, deleteFromCart } = props;
   return (
     <div className="max-w-xs px-10 ">
       <div className="bg-white rounded-lg shadow-md ">
@@ -19,7 +19,12 @@ export const SmallCard = (props) => {
           <p className="text-gray-700 text-sm font-normal px-2 text-center">
             Código: {id}
           </p>
-          <button className="bg-slate-200 hover:bg-slate-400 p-2 my-2 flex rounded-l ">
+          <button
+            onClick={() => {
+              deleteFromCart(id);
+            }}
+            className="bg-slate-200 hover:bg-slate-400 p-2 my-2 flex rounded-l "
+          >
             <p className="px-2">Eliminar de la cesta</p>
           </button>
         </div>

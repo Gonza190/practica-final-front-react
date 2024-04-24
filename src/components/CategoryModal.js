@@ -2,22 +2,29 @@ import React from "react";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
-export const CategoryModal = () => {
-  const [modalOpen, setModalOpen] = useState(false); // Estado para controlar si el modal está abierto o cerrado
+export const CategoryModal = (props) => {
+  const { addCategory } = props;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [categoryName, setCategoryName] = useState("");
 
-  // Función para abrir el modal
   const openModal = () => {
     setModalOpen(true);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setModalOpen(false);
   };
 
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    if (categoryName.trim() !== "") {
+      addCategory(categoryName);
+      setCategoryName("");
+      closeModal();
+    }
+  };
   return (
     <div>
-      {/* Botón para abrir el modal */}
       <button
         className="bg-slate-200 hover:bg-slate-400 p-2 my-2 flex rounded-xl items-center mr-2"
         onClick={openModal}
@@ -53,23 +60,25 @@ export const CategoryModal = () => {
               </button>
             </div>
             <div className="mt-4">
-              <div>
-                <form>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-medium mb-2">
-                      Nombre
-                    </label>
-                    <input
-                      type="text"
-                      className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                  </div>
-
-                  <button className="bg-slate-200 hover:bg-slate-400 p-2 my-2 flex rounded-xl items-center mr-2">
-                    Añadir
-                  </button>
-                </form>
-              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-medium mb-2">
+                    Nombre
+                  </label>
+                  <input
+                    type="text"
+                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value={categoryName}
+                    onChange={(e) => setCategoryName(e.target.value)}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="bg-slate-200 hover:bg-slate-400 p-2 my-2 flex rounded-xl items-center mr-2"
+                >
+                  Añadir
+                </button>
+              </form>
             </div>
           </div>
         </div>
