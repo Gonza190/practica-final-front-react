@@ -266,7 +266,7 @@ export const Content = () => {
           categoria: category,
           nombre: name,
           artista: artist,
-          precio: prize,
+          precio: parseFloat(prize),
           stock: stock,
           img: img,
         },

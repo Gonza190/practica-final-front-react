@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa";
 export const ProductModal = (props) => {
   const { categories, addProduct } = props;
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Hip-Hop");
   const [productName, setProductName] = useState("");
   const [artist, setArtist] = useState("");
   const [price, setPrice] = useState(0);
@@ -25,7 +25,7 @@ export const ProductModal = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addProduct(selectedCategory, productName, artist, price, stock, image);
-    setSelectedCategory("");
+    setSelectedCategory("Hip-Hop");
     setProductName("");
     setArtist("");
     setPrice(0);
@@ -36,6 +36,7 @@ export const ProductModal = (props) => {
 
   return (
     <div>
+      {console.log(selectedCategory)}
       <button
         className="bg-slate-200 hover:bg-slate-400 p-2 my-2 flex rounded-xl items-center mr-2"
         onClick={openModal}
@@ -83,6 +84,7 @@ export const ProductModal = (props) => {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
                       />
                     </div>
                     <div className="my-3">
@@ -94,6 +96,7 @@ export const ProductModal = (props) => {
                         value={artist}
                         onChange={(e) => setArtist(e.target.value)}
                         className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
                       />
                     </div>
                     <div className="my-3">
@@ -105,9 +108,8 @@ export const ProductModal = (props) => {
                         onChange={(e) => setSelectedCategory(e.target.value)}
                         className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       >
-                        <option value="">Selecciona una categoría</option>
                         {categories.map((category) => (
-                          <option key={category.id} value={category.id}>
+                          <option key={category.id} value={category.nombre}>
                             {category.nombre}
                           </option>
                         ))}
@@ -119,6 +121,7 @@ export const ProductModal = (props) => {
                       </label>
                       <input
                         type="number"
+                        step="0.01"
                         min={0}
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
@@ -143,6 +146,7 @@ export const ProductModal = (props) => {
                         Portada
                       </label>
                       <input
+                        accept="image/*"
                         type="file"
                         onChange={(e) => setImage(e.target.files[0])}
                         className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
