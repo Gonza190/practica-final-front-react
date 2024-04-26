@@ -30,7 +30,9 @@ export const Accordion = (props) => {
             products.map((product) => (
               <Card
                 key={product.id}
-                imagePath={IMG_URL + product.imagen}
+                imagePath={
+                  product.id > 30 ? product.imagen : IMG_URL + product.imagen //because I dont have a server for files, so I use FileReader
+                }
                 title={product.nombre + " - " + product.artista}
                 prize={product.precio}
                 stock={product.stock}

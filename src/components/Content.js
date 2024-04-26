@@ -66,38 +66,6 @@ export const Content = () => {
       });
   }
 
-  function getCategoryById(id) {
-    fetch(API_URL + "categorias/" + id, {
-      method: "GET",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((categoria) => {
-        return categoria;
-      })
-      .catch((error) => {});
-  }
-
-  function getProductById(id) {
-    return fetch(API_URL + "productos/" + id, {
-      method: "GET",
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((error) => {
-        console.error("Error al obtener el producto:", error);
-        throw error;
-      });
-  }
-
   function getData() {
     // Obtener promesas para categorías y productos
     let promiseCategorias = getCategories();
@@ -153,7 +121,10 @@ export const Content = () => {
           const newProduct = (
             <SmallCard
               imagePath={
-                process.env.PUBLIC_URL + "/productos/imgs/" + product.imagen
+                //because I dont have a server for files, so I use FileReader
+                id > 30
+                  ? product.imagen
+                  : process.env.PUBLIC_URL + "/productos/imgs/" + product.imagen
               }
               title={product.nombre + " - " + product.artista}
               prize={product.precio}
@@ -254,7 +225,7 @@ export const Content = () => {
     });
   }
 
-  function addProduct(category, name, artist, prize, stock, img) {
+  function addProduct(category, name, artist, prize, stock, imageUrl) {
     setProducts((oldProducts) => {
       console.log("oldProducts");
       console.log(oldProducts);
@@ -268,13 +239,18 @@ export const Content = () => {
           artista: artist,
           precio: parseFloat(prize),
           stock: stock,
-          img: img,
+          imagen: imageUrl,
         },
       ];
       console.log("newProducts");
       console.log(newProducts);
       return newProducts;
     });
+  }
+
+  function handleOrder() {
+    setTotal(0.0);
+    setProdsOnCart([]);
   }
 
   return (
@@ -293,7 +269,7 @@ export const Content = () => {
         )}
       </div>
       <div className="md:col-span-3">
-        <Cart total={total} content={prodsOnCart} />
+        <Cart total={total} content={prodsOnCart} handleOrder={handleOrder} />
       </div>
     </div>
   );

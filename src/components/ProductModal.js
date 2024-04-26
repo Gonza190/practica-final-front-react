@@ -10,33 +10,41 @@ export const ProductModal = (props) => {
   const [artist, setArtist] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
-  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
 
-  // Función para abrir el modal
   const openModal = () => {
     setModalOpen(true);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setModalOpen(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProduct(selectedCategory, productName, artist, price, stock, image);
+    addProduct(selectedCategory, productName, artist, price, stock, imageUrl);
     setSelectedCategory("Hip-Hop");
     setProductName("");
     setArtist("");
     setPrice(0);
     setStock(0);
-    setImage(null);
+    setImageUrl(null);
     closeModal();
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <div>
-      {console.log(selectedCategory)}
       <button
         className="bg-slate-200 hover:bg-slate-400 p-2 my-2 flex rounded-xl items-center mr-2"
         onClick={openModal}
@@ -126,6 +134,7 @@ export const ProductModal = (props) => {
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
                       />
                     </div>
                     <div className="my-3">
@@ -139,6 +148,7 @@ export const ProductModal = (props) => {
                         value={stock}
                         onChange={(e) => setStock(e.target.value)}
                         className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
                       />
                     </div>
                     <div className="my-3">
@@ -148,9 +158,19 @@ export const ProductModal = (props) => {
                       <input
                         accept="image/*"
                         type="file"
-                        onChange={(e) => setImage(e.target.files[0])}
+                        onChange={handleImageChange}
                         className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
                       />
+                      {imageUrl && (
+                        <>
+                          <img
+                            src={imageUrl}
+                            alt="Product"
+                            className="mt-2 max-h-40 "
+                          />
+                        </>
+                      )}
                     </div>
                   </div>
 
