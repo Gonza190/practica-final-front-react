@@ -10,6 +10,11 @@ export const Navbar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             Web de venta de discos
           </span>
+          <img
+            src={process.env.PUBLIC_URL + "/logo192.png"}
+            alt="react-icon"
+            class="inline h-6 w-6"
+          ></img>
         </p>
       </div>
     </nav>
