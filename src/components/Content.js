@@ -38,11 +38,11 @@ export const Content = () => {
         throw new Error("Network response was not ok.");
       })
       .then((categorias) => {
-        return categorias; // Devuelve los datos recuperados
+        return categorias;
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        throw error; // Propaga el error hacia arriba
+        throw error;
       });
   }
 
@@ -67,11 +67,9 @@ export const Content = () => {
   }
 
   function getData() {
-    // Obtener promesas para categorías y productos
     let promiseCategorias = getCategories();
     let promiseProductos = getProducts();
 
-    // Esperar a que ambas promesas se completen
     Promise.all([promiseCategorias, promiseProductos]).then(function (
       resultados
     ) {

@@ -7,8 +7,6 @@ export const SmallCard = (props) => {
       <div className="bg-white rounded-lg shadow-md ">
         <img src={imagePath} alt={title} className="rounded-2xl w-full p-3" />
         <div className="p-4 flex flex-col items-center">
-          {" "}
-          {/* Alineación horizontal centrada */}
           <h2 className="text-xl font-semibold mb-2 text-center">{title}</h2>
           <p className="text-green-700 text-xl font-semibold px-2 text-center">
             {prize} €
